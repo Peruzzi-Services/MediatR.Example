@@ -1,6 +1,5 @@
-﻿using MediatR.Example.API.Services;
-
-namespace MediatR.Example.API;
+﻿namespace MediatR.Example.API;
+using MediatR.Example.API.Services;
 
 public class Startup
 {
@@ -24,6 +23,7 @@ public class Startup
         services.AddSwaggerGen();
 
         services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Startup>());
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
