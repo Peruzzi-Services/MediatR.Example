@@ -24,6 +24,8 @@ public class Startup
 
         services.AddScoped<IWeatherForecastService, WeatherForecastService>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Startup>());
+
+        services.AddTransient<IRepository<User>, UserRepository>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
