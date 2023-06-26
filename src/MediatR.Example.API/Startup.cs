@@ -1,5 +1,8 @@
 ﻿namespace MediatR.Example.API;
+
+using FluentValidation;
 using MediatR.Example.API.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 public class Startup
 {
@@ -25,7 +28,10 @@ public class Startup
         services.AddScoped<IWeatherForecastService, WeatherForecastService>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Startup>());
 
+        services.AddValidatorsFromAssemblyContaining<Startup>();
+
         services.AddTransient<IRepository<User>, UserRepository>();
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(Middlewares.ValidationBehavior<,>));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
